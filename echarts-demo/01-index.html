@@ -6,28 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Echarts入门demo</title>
   <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.0.0-alpha.1/echarts.js"></script>
-  <script src="./theme/itcast.js"></script>
 </head>
 
 <body>
-  <div id="container" style="width:600px;height: 400px;"></div>
+  <div id="container" style="width:600px;height:400px;"></div>
 </body>
 <script>
-  // 1.在线编辑主题 https://www.echartsjs.com/theme-builder/
-  // 2.下载主题的js文件
-  // 3.在html中导入js文件
-  // 4.在init方法中指明主题的名称
-
   // 基于准备好的dom，初始化echarts实例
-  // const myChart = echarts.init(document.getElementById('container'), 'dark')
-  const myChart = echarts.init(document.getElementById('container'), 'itcast')
+  const myChart = echarts.init(document.getElementById('container'))
+
+  const xDataArr = ['小明', '小红', '小黄']
 
   // 指定图表的配置项和数据
   const option = {
     // 标题
     title: {
-      text: 'ECharts 入门示例-数学成绩统计'
+      text: 'ECharts 入门示例-数学成绩统计',
+      link: 'http://www.baidu.com', // 主标题超链接
+      textStyle: { // 主标题样式
+        color: 'red',
+        fontWeight: 1000
+      }
     },
+
     legend: {
       data: ['数学成绩', '语文成绩'],
       bottom: 0
@@ -54,16 +55,23 @@
         }
       }
     },
+    // x轴
     xAxis: {
       type: 'category', // 类目轴
-      data: ['小明', '小红', '小黄']
+      data: xDataArr
     },
+    // y轴
     yAxis: {
-      type: 'value' // 数值轴
+      type: 'value', // 数值轴
+      // data: xDataArr
+      // 数值轴的data去series中的data找
     },
-    series: [{
+    // 系列列表：y轴数据
+    series: [
+      // 系列一
+      {
         name: '数学成绩',
-        type: 'bar', // 图表类型
+        type: 'bar', // 当前系列图表类型：bar柱状图 line折线图 pie饼图
         // 最大最小值
         markPoint: {
           data: [{
@@ -89,12 +97,16 @@
           rotate: 60, // 旋转60度
           position: 'inside' // 位置
         },
+        // 柱宽度
         // barWidth: '30%',
+        
         data: [80, 65, 90]
       },
+      // 系列二
       {
         name: '语文成绩',
         type: 'bar',
+        // 柱状图相关：标记点（最大最小值）
         markPoint: {
           data: [{
               type: 'max',
@@ -106,17 +118,17 @@
             }
           ]
         },
-        // 平均值
+        // 柱状图相关：标记线（平均值）
         markLine: {
           data: [{
             type: 'average',
             name: '平均值'
           }]
         },
-        // 是否显示内容
+        // 标签：显示具体数据
         label: {
           show: true,
-          rotate: 60, // 旋转60度
+          rotate: 60, // 旋转角度
           position: 'inside' // 位置
         },
         data: [90, 80, 95]
@@ -124,7 +136,7 @@
     ]
   }
 
-  // 使用刚指定的配置项和数据显示图表。
+  // 使用刚指定的配置项和数据显示图表
   myChart.setOption(option)
 </script>
 
