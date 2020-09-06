@@ -3,7 +3,7 @@ module.exports = async (ctx, next) => {
   await next()
   // 设置mime类型和编码类型
   ctx.set('Content-Type', 'application/json;charset=utf-8')
-  // 允许跨域
+  // CORS解决跨域
   ctx.set('Access-Control-Allow-Origin', '*')
   ctx.set(
     'Access-Control-Allow-Headers',
