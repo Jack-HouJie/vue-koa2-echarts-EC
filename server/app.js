@@ -1,19 +1,21 @@
-// 引入Koa
+/* 服务器入口文件 */
+// 1.创建Koa实例对象
 const Koa = require('koa')
-
-// 创建app
 const app = new Koa()
 
 // 应用中间件
-// 耗时中间件
-app.use(require('./middleware/koa_response_duration'))
+// 耗时中间件（需要在第一个）
+const durationMiddleware = require('./middleware/koa_response_duration')
+app.use(durationMiddleware)
 // 响应头中间件
-app.use(require('./middleware/koa_response_header'))
+const headerMiddleware = require('./middleware/koa_response_header')
+app.use(headerMiddleware)
 // 逻辑处理中间件
-app.use(require('./middleware/koa_response_data'))
+const dataMiddleware = require('./middleware/koa_response_data')
+app.use(dataMiddleware)
 
-// 监听端口
-app.listen(9997)
+// 3.监听端口号
+app.listen(5555)
 
 const webSocketService = require('./service/websocket_service')
 // 开启服务端的WebSocket监听
