@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import SocketService from '@/utils/socket_service'
-
+// 2.1.2引入全局样式
+import './assets/styles/global.less'
 // 1.3引入axios，配置基础url，挂载至vue原型
 import axios from 'axios'
 axios.defaults.baseURL = 'http://10.236.163.76:8080/api'

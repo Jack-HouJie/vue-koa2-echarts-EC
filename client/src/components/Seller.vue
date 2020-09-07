@@ -1,10 +1,14 @@
+
 <template>
   <div class="com-container">
-    <div class="com-chart" ref="sellerRef"></div>
+    <div class="com-chart"
+         ref="sellerRef">
+    </div>
   </div>
 </template>
 
 <script>
+
 // import { getSellerData } from '@/api/seller'
 import { mapGetters } from 'vuex'
 export default {
