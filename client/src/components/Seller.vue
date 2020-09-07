@@ -18,7 +18,7 @@ export default {
       allData: null, // 服务器返回的数据
       currentPage: 1, // 当前页
       pageSize: 5, // 页容量
-      totalPage: 0, // 一共有多少页
+      totalPage: 0, // 总页数
       timer: null // 定时器
     }
   },
@@ -52,6 +52,7 @@ export default {
   destroyed () {
     window.removeEventListener('resize', this.screenAdapter)
     this.$socket.unRegisterCallBack('sellerData')
+    // 清除
     clearInterval(this.timer)
   },
   methods: {
@@ -122,9 +123,11 @@ export default {
       }
       this.chartInstance.setOption(initOption)
       this.chartInstance.on('mouseover', () => {
+        // 用户鼠标点击时不再更新页数
         clearInterval(this.timer)
       })
       this.chartInstance.on('mouseout', () => {
+        // 鼠标移出重新启动更新页数定时器
         this.startInterval()
       })
     },
@@ -136,7 +139,7 @@ export default {
       // this.allData = res.data
       this.allData = res
 
-      // 排序
+      // 从小到大排序
       this.allData.sort((a, b) => a.value - b.value)
 
       // 计算总页码
@@ -148,11 +151,12 @@ export default {
       // 更新图表
       this.updateChart()
 
-      // 开启定时器
+      // 开启更新页数定时器
       this.startInterval()
     },
     // 更新图表
     updateChart () {
+      // 2.1.4获取当前页数据
       const start = (this.currentPage - 1) * this.pageSize
       const end = this.currentPage * this.pageSize
       const showData = this.allData.slice(start, end)
@@ -173,8 +177,9 @@ export default {
 
       this.chartInstance.setOption(dataOption)
     },
-    // 开启定时器
+    // 2.1.4.2开启定时器
     startInterval () {
+      // 防抖
       if (this.timer) {
         clearInterval(this.timer)
       }
@@ -184,7 +189,7 @@ export default {
         if (this.currentPage > this.totalPage) {
           this.currentPage = 1
         }
-
+        // 根据当前页更新图表数据
         this.updateChart()
       }, 3000)
     },
