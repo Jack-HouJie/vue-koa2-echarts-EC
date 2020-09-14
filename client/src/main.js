@@ -7,7 +7,8 @@ import SocketService from '@/utils/socket_service'
 import './assets/styles/global.less'
 // 1.3引入axios，配置基础url，挂载至vue原型
 import axios from 'axios'
-axios.defaults.baseURL = 'http://10.236.163.76:8080/api'
+// 1.3 设置请求路径前缀
+axios.defaults.baseURL = 'http://127.0.0.1:8080/api'
 Vue.prototype.$http = axios
 
 // import echarts from 'echarts'

@@ -8,6 +8,7 @@ const routes = [
     redirect: '/screen'
   },
   {
+    // 2.1.2
     path: '/seller',
     name: 'SellerPage',
     // route level code-splitting
