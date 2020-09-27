@@ -1,123 +1,107 @@
 <template>
-  <div class="screen-container" :style="containerStyle">
+  <div class="screen-container"
+       :style="containerStyle">
     <header class="screen-header">
       <div>
-        <img :src="headerSrc" alt="" />
+        <img :src="headerSrc"
+             alt="" />
       </div>
       <span class="logo">
-        <img :src="logoSrc" alt="" />
+        <img :src="logoSrc"
+             alt="" />
       </span>
       <span class="title">电商平台实时监控系统</span>
       <div class="title-right">
-        <img :src="themeSrc" class="qiehuan" @click="handleThemeChange" />
+        <img :src="themeSrc"
+             class="qiehuan"
+             @click="handleThemeChange" />
         <span class="datetime">2049-01-01 00:00:00</span>
       </div>
     </header>
     <div class="screen-body">
       <section class="screen-left">
-        <div
-          id="left-top"
-          :class="[fullScreenStatus.trend ? 'fullscreen' : '']"
-        >
+        <div id="left-top"
+             :class="[fullScreenStatus.trend ? 'fullscreen' : '']">
           <!-- 销售趋势图表 -->
           <Trend ref="trend" />
           <div class="resize">
             <!-- <span class="iconfont icon-compress-alt"></span>-->
-            <span
-              :class="[
+            <span :class="[
                 'iconfont',
                 fullScreenStatus.trend ? 'icon-compress-alt' : 'icon-expand-alt'
               ]"
-              @click="changeSize('trend')"
-            ></span>
+                  @click="changeSize('trend')"></span>
           </div>
         </div>
-        <div
-          id="left-bottom"
-          :class="[fullScreenStatus.seller ? 'fullscreen' : '']"
-        >
+        <div id="left-bottom"
+             :class="[fullScreenStatus.seller ? 'fullscreen' : '']">
           <!-- 商家销售金额表 -->
           <Seller ref="seller" />
           <div class="resize">
             <!-- <span class="iconfont icon-compress-alt"></span>-->
-            <span
-              :class="[
+            <span :class="[
                 'iconfont',
                 fullScreenStatus.seller
                   ? 'icon-compress-alt'
                   : 'icon-expand-alt'
               ]"
-              @click="changeSize('seller')"
-            ></span>
+                  @click="changeSize('seller')"></span>
           </div>
         </div>
       </section>
       <section class="screen-middle">
-        <div
-          id="middle-top"
-          :class="[fullScreenStatus.map ? 'fullscreen' : '']"
-        >
+        <div id="middle-top"
+             :class="[fullScreenStatus.map ? 'fullscreen' : '']">
           <!-- 商家分布图表 -->
           <Map ref="map" />
           <div class="resize">
             <!-- <span class="iconfont icon-compress-alt"></span>-->
-            <span
-              :class="[
+            <span :class="[
                 'iconfont',
                 fullScreenStatus.map ? 'icon-compress-alt' : 'icon-expand-alt'
               ]"
-              @click="changeSize('map')"
-            ></span>
+                  @click="changeSize('map')"></span>
           </div>
         </div>
-        <div
-          id="middle-bottom"
-          :class="[fullScreenStatus.rank ? 'fullscreen' : '']"
-        >
+        <div id="middle-bottom"
+             :class="[fullScreenStatus.rank ? 'fullscreen' : '']">
           <!-- 地区销售排行图表 -->
           <Rank ref="rank" />
           <div class="resize">
             <!-- <span class="iconfont icon-compress-alt"></span>-->
-            <span
-              :class="[
+            <span :class="[
                 'iconfont',
                 fullScreenStatus.rank ? 'icon-compress-alt' : 'icon-expand-alt'
               ]"
-              @click="changeSize('rank')"
-            ></span>
+                  @click="changeSize('rank')"></span>
           </div>
         </div>
       </section>
       <section class="screen-right">
-        <div id="right-top" :class="[fullScreenStatus.hot ? 'fullscreen' : '']">
+        <div id="right-top"
+             :class="[fullScreenStatus.hot ? 'fullscreen' : '']">
           <!-- 热销商品占比图表 -->
           <Hot ref="hot" />
           <div class="resize">
             <!-- <span class="iconfont icon-compress-alt"></span>-->
-            <span
-              :class="[
+            <span :class="[
                 'iconfont',
                 fullScreenStatus.hot ? 'icon-compress-alt' : 'icon-expand-alt'
               ]"
-              @click="changeSize('hot')"
-            ></span>
+                  @click="changeSize('hot')"></span>
           </div>
         </div>
-        <div
-          id="right-bottom"
-          :class="[fullScreenStatus.stock ? 'fullscreen' : '']"
-        >
+        <div id="right-bottom"
+             :class="[fullScreenStatus.stock ? 'fullscreen' : '']">
           <!-- 库存销量分析图表 -->
           <Stock ref="stock" />
           <div class="resize">
             <!-- <span class="iconfont icon-compress-alt"></span>-->
-            <span
-              :class="[
+            <span :class="[
                 'iconfont',
                 fullScreenStatus.stock ? 'icon-compress-alt' : 'icon-expand-alt'
               ]"
-              @click="changeSize('stock')"
-            ></span>
+                  @click="changeSize('stock')"></span>
           </div>
         </div>
       </section>
@@ -199,8 +183,11 @@ export default {
         value: targetValue
       })
     },
+    // 结构得到切换状态和图标名
     recvData ({ value, chartName }) {
+      // 切换状态
       this.fullScreenStatus[chartName] = value
+      // 图标适应宽度
       this.$nextTick(() => {
         this.$refs[chartName].screenAdapter()
       })
@@ -232,7 +219,6 @@ export default {
   margin: 0 !important;
   z-index: 100;
 }
-
 .screen-container {
   width: 100%;
   height: 100%;

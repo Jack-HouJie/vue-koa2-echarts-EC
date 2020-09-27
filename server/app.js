@@ -3,7 +3,7 @@
 const Koa = require('koa')
 const app = new Koa()
 
-// 应用中间件
+// 2.设置中间件
 // 耗时中间件（需要在第一个）
 const durationMiddleware = require('./middleware/koa_response_duration')
 app.use(durationMiddleware)
@@ -14,9 +14,11 @@ app.use(headerMiddleware)
 const dataMiddleware = require('./middleware/koa_response_data')
 app.use(dataMiddleware)
 
-// 3.监听端口号
+// 3.监听server服务器
 app.listen(5555)
 
+// 4.设置WebSocket并监听
 const webSocketService = require('./service/websocket_service')
-// 开启服务端的WebSocket监听
 webSocketService.listen()
+
+

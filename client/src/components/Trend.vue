@@ -1,25 +1,23 @@
 <template>
   <div class="com-container">
-    <div class="title" :style="comStyle">
+    <div class="title"
+         :style="comStyle">
       <span>{{ '▎' + showTitle }}</span>
-      <span
-        class="iconfont title-icon"
-        :style="comStyle"
-        @click="showChoice = !showChoice"
-        >&#xe6eb;</span
-      >
-      <div class="select-con" v-show="showChoice">
-        <div
-          v-for="item in selectTypes"
-          :key="item.key"
-          :style="marginStyle"
-          @click="toggleSelect(item.key)"
-        >
+      <span class="iconfont title-icon"
+            :style="comStyle"
+            @click="showChoice = !showChoice">&#xe6eb;</span>
+      <div class="select-con"
+           v-show="showChoice">
+        <div v-for="item in selectTypes"
+             :key="item.key"
+             :style="marginStyle"
+             @click="toggleSelect(item.key)">
           {{ item.text }}
         </div>
       </div>
     </div>
-    <div class="com-chart" ref="trendRef"></div>
+    <div class="com-chart"
+         ref="trendRef"></div>
   </div>
 </template>
 
@@ -32,23 +30,26 @@ export default {
     return {
       allData: null, // 图表所需数据
       echartInstance: null, // echarts实例
-      choiceType: 'map', // 选择的类型
+      choiceType: 'map', // 当前选择的类型
       showChoice: false, // 是否显示可选项
       titleFontSize: 10 // 标题的字体大小
     }
   },
   created () {
+    // 注册回调
     this.$socket.registerCallBack('trendData', this.getData)
   },
   mounted () {
     this.initChart()
     // this.getData()
+    // 通过websocket获取数据
     this.$socket.send({
       action: 'getData',
       chartName: 'trend',
       socketType: 'trendData',
       value: ''
     })
+
     window.addEventListener('resize', this.screenAdapter)
     this.screenAdapter()
   },
@@ -62,6 +63,7 @@ export default {
       if (!this.allData) {
         return []
       } else {
+        // 筛选当前的类型
         return this.allData.type.filter(item => item.key !== this.choiceType)
       }
     },
@@ -136,6 +138,7 @@ export default {
     getData (res) {
       // const res = await getTrendData()
       // this.allData = res.data
+      // res即为websocket传回的数据
       this.allData = res
 
       this.updateChart()
@@ -223,10 +226,10 @@ export default {
 
 <style lang="less" scoped>
 .title {
+  z-index: 10;
   position: absolute;
   left: 20px;
   top: 20px;
-  z-index: 10;
   color: white;
   .title-icon {
     margin-left: 10px;

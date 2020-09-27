@@ -1,4 +1,4 @@
-// 计算请求时长
+// 计算响应耗时
 module.exports = async (ctx, next) => {
   // 记录开始时间
   const start = Date.now()

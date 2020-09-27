@@ -1,13 +1,15 @@
 <template>
   <div class="com-container">
-    <div class="com-chart" ref="hotRef"></div>
-    <span class="iconfont left" :style="commonStyle" @click="goLeft"
-      >&#xe6ef;</span
-    >
-    <span class="iconfont right" :style="commonStyle" @click="goRight"
-      >&#xe6ed;</span
-    >
-    <span class="cat-name" :style="commonStyle">{{ catTitle }}</span>
+    <div class="com-chart"
+         ref="hotRef"></div>
+    <span class="iconfont left"
+          :style="commonStyle"
+          @click="goLeft">&#xe6ef;</span>
+    <span class="iconfont right"
+          :style="commonStyle"
+          @click="goRight">&#xe6ed;</span>
+    <span class="cat-name"
+          :style="commonStyle">{{ catTitle }}</span>
   </div>
 </template>
 

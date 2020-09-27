@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 // 获取全国地图
 export const getChinaMapData = () => {
-  // 开发环境
+  // 开发环境（前端获取）
   // return request({ url: 'http://localhost:8080/static/map/china.json' })
   // 生产环境
   return request({

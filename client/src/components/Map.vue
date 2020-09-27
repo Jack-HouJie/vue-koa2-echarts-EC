@@ -68,7 +68,9 @@ export default {
           console.log(err)
         }
       })
+      // 获取矢量数据
       const res = await getChinaMapData()
+      // 注册地图矢量数据
       this.$echarts.registerMap('china', res.data)
       const initOption = {
         title: {
@@ -82,8 +84,8 @@ export default {
           orient: 'vertical'
         },
         geo: {
-          type: 'map',
-          map: 'china',
+          type: 'map', // 地图
+          map: 'china', // 使用的数据
           top: '5%',
           bottom: '5%',
           itemStyle: {
@@ -94,6 +96,7 @@ export default {
       }
       this.echartInstance.setOption(initOption)
     },
+    // 获取数据
     // async getData () {
     getData (res) {
       // const res = await getMapData()
@@ -105,9 +108,11 @@ export default {
     },
     updateChart () {
       const legendData = this.allData.map(item => item.name)
+
       const seriesArr = this.allData.map(item => {
+        // 一类用户的配置
         return {
-          type: 'effectScatter',
+          type: 'effectScatter', // 涟漪动画
           name: item.name,
           data: item.children,
           coordinateSystem: 'geo',

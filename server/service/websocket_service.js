@@ -1,34 +1,35 @@
 const path = require('path')
 const WebSocket = require('ws')
 const fileUtil = require('../utils/file_utils')
-// 创建WebSocket服务端的对象，绑定的端口号是9998
+// 实例化WebSocket服务端
 const wss = new WebSocket.Server({
   port: 9998
 })
-
+// 导出接口：服务监听
 module.exports.listen = () => {
-  // 对客户端连接事件进行监听
-  // client:代表的是客户端的连接socket对象
+  // 监听WebSocket服务端实例的connection事件
+  // 事件处理程序参数（单个连接对象）
   wss.on('connection', client => {
-    // 对客户端的连接对象进行message事件的监听
-    // msg: 由客户端发给服务端的数据
+    // 监听连接对象的message事件
+    // 事件处理程序参数（连接对象发送的数据）
     client.on('message', async msg => {
       try {
-        const msgObj = JSON.parse(msg)
-        const action = msgObj.action
+        const msgObj = JSON.parse(msg) // 反序列化JSON数据
+        const action = msgObj.action // 提取通信类型
+        // 通信类型：获取数据
         if (action === 'getData') {
+          // 适应工具类读数据
           let filePath = '../data/' + msgObj.chartName + '.json'
           filePath = path.join(__dirname, filePath)
-
           const data = await fileUtil(filePath)
-
+          // 增加字段保存数据
           msgObj.data = data.toString()
-
-          // 由服务端往客户端发送数据
+          // 数据序列化并发送回客户端
           client.send(JSON.stringify(msgObj))
-        } else {
-          // 全屏 & 主题切换
-          // 由服务端往每个客户端发送数据
+        } 
+        // 通信类型：全屏 & 主题切换
+        else {
+          // 遍历所有连接对象，发送消息
           wss.clients.forEach(client => {
             client.send(msg)
           })

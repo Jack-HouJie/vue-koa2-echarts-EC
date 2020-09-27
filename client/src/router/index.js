@@ -8,7 +8,13 @@ const routes = [
     redirect: '/screen'
   },
   {
-    // 2.1.2
+    path: '/screen',
+    name: 'ScreenPage',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/ScreenPage.vue')
+  },
+  {
+    // 2.1
     path: '/seller',
     name: 'SellerPage',
     // route level code-splitting
@@ -18,6 +24,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ '../views/SellerPage.vue')
   },
   {
+    // 2.2
     path: '/trend',
     name: 'TrendPage',
     component: () =>
@@ -46,12 +53,6 @@ const routes = [
     name: 'StockPage',
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/StockPage.vue')
-  },
-  {
-    path: '/screen',
-    name: 'ScreenPage',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/ScreenPage.vue')
   }
 ]
 
