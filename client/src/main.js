@@ -1,20 +1,19 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import SocketService from '@/utils/socket_service'
-// 2.1.2引入全局样式
-import './assets/styles/global.less'
-// 1.3引入axios，配置基础url，挂载至vue原型
+import router from './router' // vue-router
+import store from './store' // vuex
 import axios from 'axios'
-// 1.3 设置请求路径前缀
+import App from './App.vue' // 根组件
+import SocketService from '@/utils/socket_service' // socket通信工具类
+import './assets/styles/global.less' // 全局样式
+
+// 1.2.2 挂载echarts(index.html中引入)
+Vue.prototype.$echarts = window.echarts
+
+// 1.3 配置挂载axios
 axios.defaults.baseURL = 'http://127.0.0.1:8080/api'
 Vue.prototype.$http = axios
 
-// import echarts from 'echarts'
-// 1.2.2 vue原型上挂载echarts
-Vue.prototype.$echarts = window.echarts
-Vue.config.productionTip = false
+
 
 // 连接到后台WebSocket服务器
 SocketService.Instacne.connect()
@@ -23,7 +22,7 @@ SocketService.Instacne.connect()
 Vue.prototype.$socket = SocketService.Instacne
 
 new Vue({
-  router,
+  router, 
   store,
   render: h => h(App)
 }).$mount('#app')
